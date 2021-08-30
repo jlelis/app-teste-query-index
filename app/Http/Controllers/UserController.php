@@ -15,14 +15,29 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->all()) {
-            // $request->dd();
-            $users = User::select('id', 'name', 'created_at')->where('name', 'LIKE', '%' . $request->q . '%')
-                ->orderBy('name', 'asc')
-                ->paginate(10);
-            // dd($users);
+
+            // teste com variaveis
+            // $id = $request->input('id');
+            //$name = $request->input('q');
+
+            $users = User::select('id', 'name', 'created_at')
+                        ->orderBy('name', 'asc');
+
+            // pegando por ID do users
+            if ($request->input('id')) {
+                $users->where('id', $request->input('id'));
+            }
+
+            //pegando o dados por name Users
+            if ($request->input('q')) {
+                $users->where('name', 'LIKE', '%' . $request->input('q') . '%');
+            }
+
+            $users = $users->paginate();
+
             return view('users.index', compact('users'));
         }
-
+        //senão tiver a requisão por default mostrar por paginação
         $users = User::paginate();
         return view('users.index', compact('users'));
     }

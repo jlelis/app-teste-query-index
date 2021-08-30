@@ -16,12 +16,15 @@
 <body>
 
     <nav class="navbar navbar-dark bg-primary justify-content-center">
-        <form action="{{ route('users.index') }}" class="form-inline" method="get">
+        <form action="{{ route('users.index') }}" class="form-inline" method="get" id="form_id">
 
 
             <input class="form-control mr-sm-2" type="search" name="q" id="q" class="search-box" value=""
                 placeholder="Search...">
-            <button class="btn btn-success my-2 my-sm-0" type="submit">Pesquisar</button>
+                <input class="form-control mr-sm-2" type="search" name="id" id="id" class="search-box" value=""
+                placeholder="Search by ID...">
+            {{-- <button class="btn btn-success my-2 my-sm-0" type="submit">Pesquisar</button> --}}
+            <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="getClick">Pesquisar</button>
 
 
         </form>
@@ -63,6 +66,14 @@
         {{-- {{ $users->links() }} --}}
 
     </div>
+    <script>
+        function getClick() {
+            var form = document.getElementById("form_id");
+            alert('teste');
+            document.getElementById("form_id").addEventListener("click", function() {
+                form.submit();
+            });
+    </script>
 
 </body>
 
