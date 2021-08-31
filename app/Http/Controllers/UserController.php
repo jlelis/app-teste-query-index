@@ -14,14 +14,13 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->all()) {
+        $users = User::select('id', 'name', 'created_at')
+                    ->orderBy('name', 'asc');
 
+        if ($request->all()) {
             // teste com variaveis
             // $id = $request->input('id');
             //$name = $request->input('q');
-
-            $users = User::select('id', 'name', 'created_at')
-                        ->orderBy('name', 'asc');
 
             // pegando por ID do users
             if ($request->input('id')) {

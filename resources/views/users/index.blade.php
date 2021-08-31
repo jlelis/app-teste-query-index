@@ -21,17 +21,18 @@
 
             <input class="form-control mr-sm-2" type="search" name="q" id="q" class="search-box" value=""
                 placeholder="Search...">
-                <input class="form-control mr-sm-2" type="search" name="id" id="id" class="search-box" value=""
+            <input class="form-control mr-sm-2" type="search" name="id" id="id" class="search-box" value=""
                 placeholder="Search by ID...">
             {{-- <button class="btn btn-success my-2 my-sm-0" type="submit">Pesquisar</button> --}}
-            <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="getClick">Pesquisar</button>
+            {{-- <button class="btn btn-success my-2 my-sm-0" type="submit" onclick="getClick">Pesquisar</button> --}}
+            <input type="submit" class="btn btn-success my-2 my-sm-0" value="Pesquisar" onclick="getClick();" />
 
 
         </form>
     </nav>
     <div class="container">
 
-        <table class="table">
+        <table class="table table-responsive-sm">
 
             <thead class="thead-dark">
                 <tr>
@@ -69,10 +70,12 @@
     <script>
         function getClick() {
             var form = document.getElementById("form_id");
-            alert('teste');
+
             document.getElementById("form_id").addEventListener("click", function() {
+                event.preventDefault();
                 form.submit();
-            });
+            })
+        };
     </script>
 
 </body>
