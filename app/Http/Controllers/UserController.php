@@ -15,7 +15,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         $users = User::select('id', 'name', 'created_at')
-                    ->orderBy('name', 'asc');
+            ->orderBy('name', 'asc');
 
         if ($request->all()) {
             // teste com variaveis
@@ -37,7 +37,7 @@ class UserController extends Controller
             return view('users.index', compact('users'));
         }
         //senão tiver a requisão por default mostrar por paginação
-        $users = User::paginate();
+        $users = $users->paginate();
         return view('users.index', compact('users'));
     }
 
@@ -102,8 +102,19 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function multipleusersdelete(Request $request)
     {
-        //
+
+        dd($request->all());
+        if ($request->has('id')) {
+            # code...
+
+            $ids = $request->id;
+
+            foreach ($ids as $user) {
+                User::where('id', $user)->delete();
+            }
+        }
+        return redirect()->back();
     }
 }

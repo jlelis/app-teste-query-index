@@ -31,35 +31,43 @@
         </form>
     </nav>
     <div class="container">
+        <form action="{{ url('multipleusersdelete') }}" method="post">
+            @csrf
+            <input class="btn btn-danger" type="submit" name="submit" id="del" value="Delete Selected Users"
+                 style="display: none;" />
 
-        <table class="table table-responsive-sm">
 
-            <thead class="thead-dark">
-                <tr>
-                    <th>Id</th>
-                    <th>Name</th>
-                    <th>Criado em: </th>
-                </tr>
-            </thead>
-            @forelse ( $users as $user)
-                <tbody>
+            <table class="table table-responsive-sm">
+
+                <thead class="thead-dark">
                     <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->created_at }}</td>
+                        <th class="text-left"> <input type="checkbox" id="checkAll"> Select All</th>
+                        <th>Id</th>
+                        <th>Name</th>
+                        <th>Criado em: </th>
                     </tr>
-                </tbody>
+                </thead>
+                @forelse ( $users as $user)
+                    <tbody>
+                        <tr>
+                            <td class="text-left"><input name='id[]' type="checkbox" id="checkItem"
+                                    value="{{ $user->id }}" onclick="updateCounter() ;">
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->created_at }}</td>
+                        </tr>
+                    </tbody>
 
-            @empty
-                <tfoot>
-                    <tr>
-                        <td> Sem Dados na Pesquisa</td>
-                    </tr>
-                </tfoot>
-            @endforelse
-        </table>
+                @empty
+                    <tfoot>
+                        <tr>
+                            <td> Sem Dados na Pesquisa</td>
+                        </tr>
+                    </tfoot>
+                @endforelse
+            </table>
 
-
+        </form>
     </div>
     <div class="container d-flex justify-content-center">
 
@@ -67,15 +75,45 @@
         {{-- {{ $users->links() }} --}}
 
     </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script>
         function getClick() {
             var form = document.getElementById("form_id");
 
             document.getElementById("form_id").addEventListener("click", function() {
+
                 event.preventDefault();
                 form.submit();
+
             })
         };
+    </script>
+
+    </script>
+    <script language="javascript">
+        $("#checkAll").click(function() {
+
+            $('input:checkbox').not(this).prop('checked', this.checked);
+            if ($("#del").is(":visible")) {
+                console.log($("#del").hide());
+            } else {
+                console.log($("#del").show());
+            }
+
+        });
+
+    </script>
+    <script>
+        function myFunction() {
+            var checkBox = document.getElementById("myCheck");
+            var text = document.getElementById("text");
+            if (checkBox.checked == true) {
+                text.style.display = "block";
+            } else {
+                text.style.display = "none";
+            }
+        }
     </script>
 
 </body>
